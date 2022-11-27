@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogRestApi", "CatalogRestApi\CatalogRestApi.csproj", "{60A5D4E7-44D1-4634-99D9-E41A95D07607}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fx", "Fx\Fx.csproj", "{88DBFDE8-800C-432F-8B8D-833FC390C624}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{60A5D4E7-44D1-4634-99D9-E41A95D07607}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60A5D4E7-44D1-4634-99D9-E41A95D07607}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60A5D4E7-44D1-4634-99D9-E41A95D07607}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88DBFDE8-800C-432F-8B8D-833FC390C624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88DBFDE8-800C-432F-8B8D-833FC390C624}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88DBFDE8-800C-432F-8B8D-833FC390C624}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88DBFDE8-800C-432F-8B8D-833FC390C624}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
