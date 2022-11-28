@@ -8,6 +8,6 @@ namespace CatalogRestApi.Services.Interfaces
         Task<ItemDetail> CreateItem(ItemForCreate itemForCreate);
         Task DeleteItem(long itemId);
         Task PatchItem(long itemId, ItemForPatch itemForPatch);
-        //Task<IPagedCollection<ItemDetail>> GetMovies(MovieQuery query);
+        Task<IEnumerable<ItemDetail>> ListItems(ItemParams itemParameters);
     }
 }

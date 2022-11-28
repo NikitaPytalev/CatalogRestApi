@@ -41,6 +41,7 @@ namespace CatalogRestApi.Services
 
                     var newCategory = new Category
                     {
+                        CategoryId = new Random().Next(),
                         Title = itemForCreate.CategoryTitle
                     };
 
@@ -109,5 +110,31 @@ namespace CatalogRestApi.Services
                 await _context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
+
+        public async Task<IEnumerable<ItemDetail>> ListItems(ItemParams itemParams)
+        {
+            if (itemParams is null)
+                throw new ArgumentNullException(nameof(itemParams));
+
+            var items = await _context.Items
+                .Include(item => item.Category)
+                .Where(item => item.Category.CategoryId == itemParams.CategoryId)
+                .Skip((itemParams.PageNumber - 1) * itemParams.PageSize)
+                .Take(itemParams.PageSize)
+                .ToListAsync();
+
+            if (items == null)
+                throw new EntityNotFoundException($"No items could be found");
+
+            var itemsDetail = items.Select(item => new ItemDetail
+            {
+                ItemId = item.ItemId,
+                Title = item.Title,
+                CategoryTitle = item.Category.Title
+            });
+
+            return itemsDetail;
+        }
+
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CatalogRestApi.Services.Interfaces;
 using CatalogRestApi.Models.ItemModels;
+using CatalogRestApi.Models.CategoryModels;
+using CatalogRestApi.Services;
 
 namespace CatalogRestApi.Controllers
 {
@@ -54,6 +56,21 @@ namespace CatalogRestApi.Controllers
             await _itemService.PatchItem(itemId, patch).ConfigureAwait(true);
 
             return NoContent();
+        }
+
+
+        /// <summary>
+        /// Retrieve items
+        /// </summary>
+        /// <response code="200">The items were retrieved successfully</response>
+        [HttpGet(Name = nameof(ListItems))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<ItemDetail>>> ListItems([FromQuery] ItemParams itemParams)
+        {
+            var items = await _itemService.ListItems(itemParams).ConfigureAwait(true);
+
+            return Ok(items);
         }
     }
 }

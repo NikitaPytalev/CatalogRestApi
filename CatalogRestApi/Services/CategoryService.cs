@@ -47,6 +47,7 @@ namespace CatalogRestApi.Services
             var categoryFromDb = await _context
                 .Categories
                 .Where(category => category.CategoryId == categoryId)
+                .Include(category => category.Items)
                 .FirstOrDefaultAsync()
                 .ConfigureAwait(false);
 

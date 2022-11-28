@@ -20,10 +20,10 @@ namespace CatalogRestApi.Data
             if (modelBuilder is null)
                 throw new ArgumentNullException(nameof(modelBuilder));
 
-            modelBuilder.Entity<Category>()
-                .HasMany(c => c.Items)
-                .WithOne(i => i.Category)
-                .HasForeignKey(i => i.CategoryId);
+            //modelBuilder.Entity<Category>()
+            //    .HasMany(c => c.Items)
+            //    .WithOne(i => i.Category)
+            //    .HasForeignKey(i => i.CategoryId);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CatalogDbContext).Assembly);
