@@ -1,4 +1,5 @@
 ﻿using CatalogRestApi.Data.Interfaces;
+using CatalogRestApi.Models.CategoryModels;
 using CatalogRestApi.Models.ItemModels;
 using CatalogRestApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -23,18 +24,47 @@ namespace CatalogRestApi.Services
 
             async Task<ItemDetail> CreateItem()
             {
-                var item = new Item
+                var category = _context
+                    .Categories
+                    .Where(category => category.Title == itemForCreate.CategoryTitle)
+                    .FirstOrDefault();
+
+                var itemId = new Random().Next();
+
+                if (category == null)
                 {
-                    ItemId =new Random().Next(),
-                    Title = itemForCreate.Title
-                };
-                
-                _context.Items.Add(item);
+                    var item = new Item
+                    {
+                        ItemId = itemId,
+                        Title = itemForCreate.Title,
+                    };
+
+                    var newCategory = new Category
+                    {
+                        Title = itemForCreate.CategoryTitle
+                    };
+
+                    newCategory.Items.Add(item);
+
+                    _context.Categories.Add(newCategory);
+                } else
+                {
+                    var item = new Item
+                    {
+                        ItemId = itemId,
+                        Title = itemForCreate.Title,
+                        Category = category
+                    };
+
+                    _context.Items.Add(item);
+                }
+
                 await _context.SaveChangesAsync().ConfigureAwait(false);
 
                 var itemDetail = new ItemDetail {
-                    ItemId = item.ItemId,
-                    Title = itemForCreate.Title
+                    ItemId = itemId,
+                    Title = itemForCreate.Title,
+                    CategoryTitle = itemForCreate.CategoryTitle
                 };
 
                 return itemDetail;
@@ -50,7 +80,7 @@ namespace CatalogRestApi.Services
                 .ConfigureAwait(false);
 
             if (itemFromDb == null)
-                throw new EntityNotFoundException($"A rating having id '{itemId}' could not be found");
+                throw new EntityNotFoundException($"An item having id '{itemId}' could not be found");
 
             _context.Items.Remove(itemFromDb);
             await _context.SaveChangesAsync().ConfigureAwait(false);
@@ -72,7 +102,7 @@ namespace CatalogRestApi.Services
                     .ConfigureAwait(false);
 
                 if (itemFromDb == null)
-                    throw new EntityNotFoundException($"A rating having id '{itemId}' could not be found");
+                    throw new EntityNotFoundException($"An item having id '{itemId}' could not be found");
 
                 itemFromDb.Title = itemForPatch.Title;
 

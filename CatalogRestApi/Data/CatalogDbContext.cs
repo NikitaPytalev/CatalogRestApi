@@ -2,6 +2,7 @@
 using CatalogRestApi.Models.CategoryModels;
 using CatalogRestApi.Models.ItemModels;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace CatalogRestApi.Data
 {
@@ -18,6 +19,11 @@ namespace CatalogRestApi.Data
         {
             if (modelBuilder is null)
                 throw new ArgumentNullException(nameof(modelBuilder));
+
+            modelBuilder.Entity<Category>()
+                .HasMany(c => c.Items)
+                .WithOne(i => i.Category)
+                .HasForeignKey(i => i.CategoryId);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CatalogDbContext).Assembly);

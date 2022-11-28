@@ -3,6 +3,7 @@
     public sealed class ItemForCreate
     {
         public string Title { get; set; } = string.Empty;
-        //public IReadOnlyCollection<string> Genres { get; set; } = new List<string>();
+
+        public string CategoryTitle { get; set; } = string.Empty;
     }
 }

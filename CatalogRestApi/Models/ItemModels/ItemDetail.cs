@@ -10,5 +10,8 @@ namespace CatalogRestApi.Models.ItemModels
 
         [DataMember(Order = 2)]
         public string Title { get; set; } = string.Empty;
+
+        [DataMember(Order = 3)]
+        public string CategoryTitle { get; set; }
     }
 }
